@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "qa-guru-python-api-3-19"
+version = "0.1.0"
+description = ""
+authors = ["Rustam Dzhafarov <rustamd74@gmail.com>"]
+readme = "README.md"
+packages = [{include = "qa_guru_python_api_3_19"}]
+
+[tool.poetry.dependencies]
+python = "^3.10.5"
+pytest = "^7.2.1"
+selene = "^2.0.0b17"
+dynaconf = "^3.1.11"
+requests = "^2.28.2"
+pytest-voluptuous = "^1.2.0"
+voluptuous = "^0.13.1"
+allure-pytest = "^2.12.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^2.16.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts=" -vv -s --alluredir=allure-result "
