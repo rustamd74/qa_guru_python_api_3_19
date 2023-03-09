@@ -3,20 +3,19 @@ import allure
 
 from selene import have
 
-LOGIN = os.getenv('LOGIN')
-PASSWORD = os.getenv('PASSWORD')
+EMAIL = os.getenv('EMAIL')
 
 
 def test_auth_login(auth_user):
     with allure.step('Checking for Successful Authorization'):
         auth_user.open('')
-        auth_user.element('.account').should(have.text(LOGIN))
+        auth_user.element('.account').should(have.text(EMAIL))
 
 
 def test_add_to_cart(auth_user, demoshop):
     with allure.step('Product selection'):
         demoshop.get('/notebooks')
-    with allure.step('Add to cart'):
+    with allure.step("Add to cart"):
         auth_user.element('.button-2 ').click()
 
 

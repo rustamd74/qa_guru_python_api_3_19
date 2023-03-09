@@ -1,34 +1,26 @@
-import os
-
 import pytest
 from dotenv import load_dotenv
-from selene.support.shared import browser
 
-from utils.base_session import BaseSession
+from framework.demoqa_with_env import DemoQaWithEnv
 
-browser.config.base_url = "https://demowebshop.tricentis.com"
 
 load_dotenv()
 
 
-@pytest.fixture(scope="session")
-def demoshop():
-    api_url = BaseSession(os.getenv("API_URL"))
-    return api_url
+def pytest_addoption(parser):
+    parser.addoption("--env")
 
 
 @pytest.fixture(scope="session")
-def auth_user(demoshop):
-    response = demoshop.post("/login", json={"Email": os.getenv('LOGIN'), "Password": os.getenv('PASSWORD')},
-                             allow_redirects=False)
-    authorization_cookie = response.cookies.get("NOPCOMMERCE.AUTH")
-
-    browser.open("")
-
-    browser.driver.add_cookie({'name': "NOPCOMMERCE.AUTH", 'value': authorization_cookie})
-    return browser
+def demoshop(request):
+    return request.config.getoption("--env")
 
 
 @pytest.fixture(scope="session")
-def regres_api():
-    return BaseSession(os.getenv('REG_URL'))
+def auth_user(env):
+    return DemoQaWithEnv(env).demoqa
+
+
+@pytest.fixture(scope="session")
+def regres_api(env):
+    return DemoQaWithEnv(env).reqres

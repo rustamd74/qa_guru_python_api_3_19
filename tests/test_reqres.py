@@ -52,7 +52,7 @@ def test_create(regres_api):
         "name": "morpheus",
         "job": "leader",
         "id": "778",
-        "createdAt": "2023-03-05T11:28:46.826Z"
+        "createdAt": "2023-03-08T11:28:46.826Z"
     }
     create_user = regres_api.post("api/users", data=data)
     assert create_user.status_code == 201
