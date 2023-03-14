@@ -14,9 +14,10 @@ def test_auth_login(auth_user):
 
 def test_add_to_cart(auth_user, demoshop):
     with allure.step('Product selection'):
-        demoshop.get('/notebooks')
+        auth_user.open('/notebooks')
     with allure.step("Add to cart"):
         auth_user.element('.button-2 ').click()
+    pass
 
 
 def test_checking_shopping_cart(demoshop):
