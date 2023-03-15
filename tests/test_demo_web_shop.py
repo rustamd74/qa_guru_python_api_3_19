@@ -12,7 +12,7 @@ def test_auth_login(auth_user):
         auth_user.element('.account').should(have.text(EMAIL))
 
 
-def test_add_to_cart(auth_user, demoshop):
+def test_add_to_cart(auth_user):
     with allure.step('Product selection'):
         auth_user.open('/notebooks')
     with allure.step("Add to cart"):
@@ -26,7 +26,7 @@ def test_checking_shopping_cart(demoshop):
         assert response.status_code == 200
 
 
-def test_update_shopping_cart(auth_user, demoshop):
+def test_update_shopping_cart(auth_user):
     with allure.step('Selecting product in cart'):
         auth_user.open('')
         auth_user.element('.ico-cart').click()
