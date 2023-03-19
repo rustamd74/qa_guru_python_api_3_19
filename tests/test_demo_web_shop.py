@@ -17,13 +17,14 @@ def test_add_to_cart(auth_user):
         auth_user.open('/notebooks')
     with allure.step("Add to cart"):
         auth_user.element('.button-2 ').click()
-    pass
+    with allure.step('Check Add to Cart'):
+        auth_user.element('.content').should(have.text('The product has been added to your '))
 
 
-def test_checking_shopping_cart(demoshop):
+def test_checking_shopping_cart(auth_user):
     with allure.step('Checking shopping cart'):
-        response = demoshop.demoqa.post("/addproducttocart/catalog/31/1/1")
-        assert response.status_code == 200
+        auth_user.open('/cart')
+        auth_user.element('.product-name').should(have.text('Laptop'))
 
 
 def test_update_shopping_cart(auth_user):
@@ -36,6 +37,9 @@ def test_update_shopping_cart(auth_user):
         auth_user.element('.order-summary-content').should(have.text('Your Shopping Cart is empty!'))
 
 
-def test_logout(demoshop):
+def test_logout(auth_user):
     with allure.step('Checking the logout'):
-        demoshop.demoqa.get('/logout')
+        auth_user.open('')
+        auth_user.element('.ico-logout').click()
+    with allure.step('Exit check'):
+        auth_user.element('.ico-login').should(have.text('Log in'))
